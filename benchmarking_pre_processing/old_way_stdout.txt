@@ -1,0 +1,70 @@
+Trimming and Merging dataset_reads/Chatillon/1146_Tri_dico-mono_R1.fastq.gz and dataset_reads/Chatillon/1146_Tri_dico-mono_R2.fastq.gz
+Fri Jul 25 11:37:22 CEST 2025
+
+Pairs Processed:	0
+Pairs Merged:	7768841
+Pairs With Adapters:	6045973
+Pairs Discarded:	297794
+CPU Time Used (Minutes):	19.157488
+Done Trimming and Merging reads.
+Fri Jul 25 11:56:41 CEST 2025
+Filtering low-complexity sequences from test_1146/old_way/old_way.trimmed.M.fq
+Fri Jul 25 11:56:53 CEST 2025
+Input and filter stats:
+	Input sequences: 7,768,841
+	Input bases: 931,205,711
+	Input mean length: 119.86
+	Good sequences: 7,760,366 (99.89%)
+	Good bases: 930,555,544
+	Good mean length: 119.91
+	Bad sequences: 8,475 (0.11%)
+	Bad bases: 650,167
+	Bad mean length: 76.72
+	Sequences filtered by specified parameters:
+	lc_method: 8475
+Done Filtering low-complexity reads from Merged reads
+Fri Jul 25 12:01:20 CEST 2025
+Filtering low-complexity sequences from test_1146/old_way/old_way.trimmed.R1.fq and test_1146/old_way/old_way.trimmed.R2.fq
+Fri Jul 25 12:01:20 CEST 2025
+Input and filter stats:
+	Input sequences (file 1): 217,603
+	Input bases (file 1): 32,640,450
+	Input mean length (file 1): 150.00
+	Input sequences (file 2): 217,603
+	Input bases (file 2): 32,640,450
+	Input mean length (file 2): 150.00
+	Good sequences (pairs): 214,140
+	Good bases (pairs): 64,242,000
+	Good mean length (pairs): 300.00
+	Good sequences (singletons file 1): 2,523 (1.16%)
+	Good bases (singletons file 1): 378,450
+	Good mean length (singletons file 1): 150.00
+	Good sequences (singletons file 2): 690 (0.32%)
+	Good bases (singletons file 2): 103,500
+	Good mean length (singletons file 2): 150.00
+	Bad sequences (file 1): 940 (0.43%)
+	Bad bases (file 1): 141,000
+	Bad mean length (file 1): 150.00
+	Bad sequences (file 2): 2,523 (1.16%)
+	Bad bases (file 2): 378,450
+	Bad mean length (file 2): 150.00
+	Sequences filtered by specified parameters:
+	lc_method: 3713
+Done Filtering low-complexity reads from Unmerged reads
+Fri Jul 25 12:01:38 CEST 2025
+Filtering PhiX sequences from test_1146/old_way/old_way.complexity_filtered.M.fq
+Fri Jul 25 12:01:38 CEST 2025
+Done filtering PhiX sequences from Merged reads.
+Fri Jul 25 12:01:47 CEST 2025
+Filtering PhiX sequences from test_1146/old_way/old_way.complexity_filtered.R1.fq and test_1146/old_way/old_way.complexity_filtered.R1.fq
+Fri Jul 25 12:01:47 CEST 2025
+Done filtering PhiX sequences from Unmerged reads.
+Fri Jul 25 12:01:48 CEST 2025
+Removing duplicates from test_1146/old_way/old_way.phiX_filtered.M.fq
+Fri Jul 25 12:01:48 CEST 2025
+Done removing duplicates from Merged reads
+Fri Jul 25 12:02:50 CEST 2025
+Removing duplicates from test_1146/old_way/old_way.phiX_filtered.R1.fq and test_1146/old_way/old_way.phiX_filtered.R2.fq
+Fri Jul 25 12:02:50 CEST 2025
+Done removing duplicates from Unmerged reads
+Fri Jul 25 12:02:54 CEST 2025

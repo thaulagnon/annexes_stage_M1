@@ -1,0 +1,27 @@
+Trimming and Merging dataset_reads/Chatillon/1146_Tri_dico-mono_R1.fastq.gz and dataset_reads/Chatillon/1146_Tri_dico-mono_R2.fastq.gz
+Fri Jul 25 11:31:48 CEST 2025
+Done Trimming and Merging reads.
+Fri Jul 25 11:33:02 CEST 2025
+Filtering low-complexity sequences from test_1146/new_way.trimmed.M.fq
+Fri Jul 25 11:33:02 CEST 2025
+Done Filtering low-complexity reads from Merged reads
+Fri Jul 25 11:33:10 CEST 2025
+Filtering low-complexity sequences from test_1146/new_way.trimmed.R1.fq and test_1146/new_way.trimmed.R2.fq
+Done Filtering low-complexity reads from Unmerged reads
+Fri Jul 25 11:33:12 CEST 2025
+Filtering PhiX sequences from test_1146/new_way.complexity_filtered.M.fq
+Fri Jul 25 11:33:12 CEST 2025
+Done filtering PhiX sequences from Merged reads.
+Fri Jul 25 11:33:21 CEST 2025
+Filtering PhiX sequences from test_1146/new_way.complexity_filtered.R1.fq and test_1146/new_way.complexity_filtered.R2.fq
+Fri Jul 25 11:33:21 CEST 2025
+Done filtering PhiX sequences from Unmerged reads.
+Fri Jul 25 11:33:22 CEST 2025
+Removing duplicates from test_1146/new_way.phiX_filtered.M.fq
+Fri Jul 25 11:33:22 CEST 2025
+Done removing duplicates from Merged reads
+Fri Jul 25 11:33:33 CEST 2025
+Removing duplicates from test_1146/new_way.phiX_filtered.R1.fq and test_1146/new_way.phiX_filtered.R2.fq
+Fri Jul 25 11:33:33 CEST 2025
+Done removing duplicates from Unmerged reads
+Fri Jul 25 11:33:35 CEST 2025
