@@ -18,7 +18,7 @@ Le wrapper contient :
 
 Ce dossier contient des scripts utilisés pour tester divers outils de pré-traitement des reads.
 Il contient aussi une analyse des résultats pour l'étape de merging et de trimming, réalisée avec l'outil falco.
-Il contient enfin des fichiers textes *_stdout.txt qui contiennnent les temps de calcul des différentes étapaes, pour chaque script.
+Il contient enfin des fichiers textes *_stdout.txt qui contiennnent les temps de calcul des différentes étapes, pour chaque script.
 
 Scripts :
 - old_way.sh : Contient le pré-traitement tel que réalisé dans le pipeline original
@@ -27,7 +27,12 @@ Scripts :
 
 A noter : l'étape de dé-duplication n'apparait plus dans le workflow Galaxy car elle venait en préalable au BLASTn uniquement, qui n'a pas pu être effectué sur Galaxy
 
-Résultats : Un fichier HTML à télécharger par fichier (Merged/Unmerged R1/Unmerged R2) et par méthode (old_way; new_way; final_way)
-J'ai aussi inclus les deux FastQC initiaux (sur R1 et R2) afin d'avoir un référentiel pour les FastQC ultérieurs
+Résultats : 
+- Raw_R1.html et Raw_R2.html : Analyse de la qualité des séquences initiales par falco
+- SeqPrep2_M.html : Analyse de la qualité des séquences fusionnées par SeqPrep2, dans le script "old_way.sh"
+- SeqPrep2_R1.html et SeqPrep2_R2.html : Analyse de la qualité des séquences non-fusionnées par SeqPrep2, dans le script "old_way.sh"
+- AdapterRemoval_M.html : Analyse de la qualité des séquences fusionnées par AdapterRemoval, dans le script "new_way.sh"
+- AdapterRemoval_R1.html et AdapterRemoval_R2.html : Analyse de la qualité des séquences non-fusionnées par AdapterRemoval, dans le script "new_way.sh"
+- AdapterRemoval_bbduk_R1.html et AdapterRemoval_bbduk_R2.html : Analyse de la qualité des séquences non-fusionnées par AdapterRemoval, puis trimmées par bbduk, dans le script "final_way.sh"
 
 
