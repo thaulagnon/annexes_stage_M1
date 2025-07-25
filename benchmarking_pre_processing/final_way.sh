@@ -38,6 +38,9 @@ mkdir -p $OUTPUT_FOLDER
 
 # May add quality-based trimming later on, so far, just trying to get an equivalent to SeqPrep2 trimming so as to compare methods
 
+echo  "Trimming and Merging" ${INPUT_FASTQ_R1} "and" ${INPUT_FASTQ_R2}
+echo  `date`
+
 AdapterRemoval --file1 $INPUT_FASTQ_R1 \
                --file2 $INPUT_FASTQ_R2 \
                --settings $OUTPUT_FOLDER/AdapterRemoval_report.txt \
@@ -50,6 +53,10 @@ AdapterRemoval --file1 $INPUT_FASTQ_R1 \
                --minlength 25 \
                --collapse \
                --minalignmentlength 15 \
+               --qualitymax 45
+
+echo  "Done Trimming and Merging reads."
+echo  `date`
 
 ##################################################################################################
 ################################# bbduk : Trim paired end reads ##################################
@@ -61,6 +68,9 @@ AdapterRemoval --file1 $INPUT_FASTQ_R1 \
 
 BBDUK_ADAPTERS=/home/taulagnon/miniconda3/envs/env_test/share/bbmap/resources/adapters.fa
 
+echo  "Second trimming on" ${OUTPUT_FOLDER}"/new_way.trimmed.R1.fq and" ${OUTPUT_FOLDER}"/new_way.trimmed.R2.fq"
+echo  `date`
+
 bbduk.sh in=$OUTPUT_FOLDER/final_way.trimmed.R1.fq \
          in2=$OUTPUT_FOLDER/final_way.trimmed.R2.fq \
          ref=$BBDUK_ADAPTERS \
@@ -69,6 +79,9 @@ bbduk.sh in=$OUTPUT_FOLDER/final_way.trimmed.R1.fq \
          ktrim=r \
          k=23 \
          mink=11
+
+echo  "Done re-trimming Unmerged reads"
+echo  `date`
 
 ##################################################################################################
 ################################## PRINSEQ : Complexity Filtering ##################################
@@ -80,6 +93,7 @@ bbduk.sh in=$OUTPUT_FOLDER/final_way.trimmed.R1.fq \
 ### Complexity filtering for merged (M) reads
 
 echo "Filtering low-complexity sequences from" ${OUTPUT_FOLDER}"/final_way.trimmed.M.fq"
+echo  `date`
 
 prinseq-lite.pl -fastq ${OUTPUT_FOLDER}/final_way.trimmed.M.fq  \
                 -out_good ${OUTPUT_FOLDER}/final_way.complexity_filtered.M  \
@@ -89,9 +103,13 @@ prinseq-lite.pl -fastq ${OUTPUT_FOLDER}/final_way.trimmed.M.fq  \
                 -line_width 0 \
                 2>&1
 
+echo  "Done Filtering low-complexity reads from Merged reads"
+echo  `date`
+
 ### Complexity filtering for unmerged (R1+R2) reads
 
 echo "Filtering low-complexity sequences from" ${OUTPUT_FOLDER}"/final_way.retrimmed.R1.fq and" ${OUTPUT_FOLDER}"/final_way.retrimmed.R2.fq"
+echo  `date`
 
 prinseq-lite.pl -fastq ${OUTPUT_FOLDER}/final_way.retrimmed.R1.fq \
                 -fastq2 ${OUTPUT_FOLDER}/final_way.retrimmed.R2.fq \
@@ -101,6 +119,9 @@ prinseq-lite.pl -fastq ${OUTPUT_FOLDER}/final_way.retrimmed.R1.fq \
                 -lc_threshold 7 \
                 -line_width 0 \
                 2>&1
+
+echo  "Done Filtering low-complexity reads from Unmerged reads"
+echo  `date`
 
 ### Renaming Prinseq outputs in order to have somewhat consistent names
 
@@ -123,6 +144,7 @@ PHIX_REF=/home/taulagnon/miniconda3/envs/env_test/share/bbmap/resources/phix174_
 ### PhiX filtering for merged (M) reads
 
 echo "Filtering PhiX sequences from" ${OUTPUT_FOLDER}"/final_way.complexity_filtered.M.fq"
+echo  `date`
 
 bbduk.sh in=${OUTPUT_FOLDER}/final_way.complexity_filtered.M.fastq \
          out=${OUTPUT_FOLDER}/final_way.phiX_filtered.M.fq \
@@ -131,9 +153,13 @@ bbduk.sh in=${OUTPUT_FOLDER}/final_way.complexity_filtered.M.fastq \
          stats=${OUTPUT_FOLDER}/final_way.phiX_removal_stats.M.txt \
          overwrite=t
 
+echo  "Done filtering PhiX sequences from Merged reads."
+echo  `date`
+
 ### PhiX filtering for unmerged (R1+R2) reads
 
 echo "Filtering PhiX sequences from" ${OUTPUT_FOLDER}"/final_way.complexity_filtered.R1.fq and" ${OUTPUT_FOLDER}"/final_way.complexity_filtered.R2.fq"
+echo  `date`
 
 bbduk.sh in=${OUTPUT_FOLDER}/final_way.complexity_filtered.R1.fq \
          in2=${OUTPUT_FOLDER}/final_way.complexity_filtered.R2.fq \
@@ -143,6 +169,9 @@ bbduk.sh in=${OUTPUT_FOLDER}/final_way.complexity_filtered.R1.fq \
          k=31 hdist=1 qin=33 \
          stats=${OUTPUT_FOLDER}/final_way.phiX_removal_stats.PE.txt \
          overwrite=t
+
+echo  "Done filtering PhiX sequences from Unmerged reads."
+echo  `date`
 
 ##################################################################################################
 ############################### fastp : Duplicate Removal ########################################
@@ -155,6 +184,7 @@ bbduk.sh in=${OUTPUT_FOLDER}/final_way.complexity_filtered.R1.fq \
 ### Duplicate Removal for merged (M) reads
 
 echo "Removing duplicates from" ${OUTPUT_FOLDER}"/final_way.phiX_filtered.M.fq"
+echo  `date`
 
 fastp -A \
       -L \
@@ -164,9 +194,13 @@ fastp -A \
       -o $OUTPUT_FOLDER/final_way.duplicates_removed.M.fq \
       --dedup
 
+echo  "Done removing duplicates from Merged reads"
+echo  `date`
+
 ### Duplicate Removal for unmerged (R1+R2) reads
 
 echo "Removing duplicates from" ${OUTPUT_FOLDER}"/new_way.phiX_filtered.R1.fq and" ${OUTPUT_FOLDER}"/new_way.phiX_filtered.R2.fq"
+echo  `date`
 
 fastp -A \
       -L \
@@ -177,3 +211,6 @@ fastp -A \
       -o $OUTPUT_FOLDER/final_way.duplicates_removed.R1.fq \
       -O $OUTPUT_FOLDER/final_way.duplicates_removed.R2.fq \
       --dedup
+
+echo  "Done removing duplicates from Unmerged reads"
+echo  `date`

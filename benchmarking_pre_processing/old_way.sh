@@ -40,7 +40,8 @@ SEQPREP_MIN_LENGTH=25        # Removes unmappably short reads.
 SEQPREP_OVERLAP=15           # Allows for confident merging of reads. Can be reduced to 10 if needed.
 SEQPREP_QUALITY_CUTOFF=15    # Quality score cutoff for mismatches to be counted in overlap
 
-echo "Trimming and Merging" ${INPUT_FASTQ_R1} "and" ${INPUT_FASTQ_R2}
+echo  "Trimming and Merging" ${INPUT_FASTQ_R1} "and" ${INPUT_FASTQ_R2}
+echo  `date`
 
 SeqPrep2 -f $INPUT_FASTQ_R1 \
          -r $INPUT_FASTQ_R2 \
@@ -57,6 +58,9 @@ SeqPrep2 -f $INPUT_FASTQ_R1 \
          -D GATCTCGGTGGTCGCCGTATCATT \
          2>&1
 
+echo  "Done Trimming and Merging reads."
+echo  `date`
+
 ## gunzipping results to allow their treatment by Prinseq
 
 gunzip ${OUTPUT_FOLDER}/old_way.trimmed.R1.fq.gz 
@@ -69,7 +73,8 @@ gunzip ${OUTPUT_FOLDER}/old_way.trimmed.M.fq.gz
 
 ### Complexity filtering for merged (M) reads
 
-echo "Filtering low-complexity sequences from" ${OUTPUT_FOLDER}"/old_way.trimmed.M.fq"
+echo  "Filtering low-complexity sequences from" ${OUTPUT_FOLDER}"/old_way.trimmed.M.fq"
+echo  `date`
 
 prinseq-lite.pl -fastq ${OUTPUT_FOLDER}/old_way.trimmed.M.fq  \
                 -out_good ${OUTPUT_FOLDER}/old_way.complexity_filtered.M  \
@@ -79,9 +84,13 @@ prinseq-lite.pl -fastq ${OUTPUT_FOLDER}/old_way.trimmed.M.fq  \
                 -line_width 0 \
                 2>&1 
 
+echo  "Done Filtering low-complexity reads from Merged reads"
+echo  `date`
+
 ### Complexity filtering for unmerged (R1+R2) reads
 
-echo "Filtering low-complexity sequences from" ${OUTPUT_FOLDER}"/old_way.trimmed.R1.fq and" ${OUTPUT_FOLDER}"/old_way.trimmed.R2.fq"
+echo  "Filtering low-complexity sequences from" ${OUTPUT_FOLDER}"/old_way.trimmed.R1.fq and" ${OUTPUT_FOLDER}"/old_way.trimmed.R2.fq"
+echo  `date`
 
 prinseq-lite.pl -fastq ${OUTPUT_FOLDER}/old_way.trimmed.R1.fq \
                 -fastq2 ${OUTPUT_FOLDER}/old_way.trimmed.R2.fq \
@@ -91,6 +100,9 @@ prinseq-lite.pl -fastq ${OUTPUT_FOLDER}/old_way.trimmed.R1.fq \
                 -lc_threshold 7 \
                 -line_width 0 \
                 2>&1
+
+echo  "Done Filtering low-complexity reads from Unmerged reads"
+echo  `date`
 
 ### Renaming Prinseq outputs in order to have somewhat consistent names
 
@@ -107,7 +119,8 @@ PHIX_REF=/home/taulagnon/miniconda3/envs/env_test/share/bbmap/resources/phix174_
 
 ### PhiX filtering for merged (M) reads
 
-echo "Filtering PhiX sequences from" ${OUTPUT_FOLDER}"/old_way.complexity_filtered.M.fq"
+echo  "Filtering PhiX sequences from" ${OUTPUT_FOLDER}"/old_way.complexity_filtered.M.fq"
+echo  `date`
 
 bbduk.sh in=${OUTPUT_FOLDER}/old_way.complexity_filtered.M.fastq \
          out=${OUTPUT_FOLDER}/old_way.phiX_filtered.M.fq \
@@ -116,9 +129,13 @@ bbduk.sh in=${OUTPUT_FOLDER}/old_way.complexity_filtered.M.fastq \
          stats=${OUTPUT_FOLDER}/old_way.phiX_removal_stats.M.txt \
          overwrite=t
 
+echo  "Done filtering PhiX sequences from Merged reads."
+echo  `date`
+
 ### PhiX filtering for unmerged (R1+R2) reads
 
-echo "Filtering PhiX sequences from" ${OUTPUT_FOLDER}"/old_way.complexity_filtered.R1.fq and" ${OUTPUT_FOLDER}"/old_way.complexity_filtered.R1.fq"
+echo  "Filtering PhiX sequences from" ${OUTPUT_FOLDER}"/old_way.complexity_filtered.R1.fq and" ${OUTPUT_FOLDER}"/old_way.complexity_filtered.R1.fq"
+echo  `date`
 
 bbduk.sh in=${OUTPUT_FOLDER}/old_way.complexity_filtered.R1.fq \
          in2=${OUTPUT_FOLDER}/old_way.complexity_filtered.R2.fq \
@@ -129,13 +146,17 @@ bbduk.sh in=${OUTPUT_FOLDER}/old_way.complexity_filtered.R1.fq \
          stats=${OUTPUT_FOLDER}/old_way.phiX_removal_stats.PE.txt \
          overwrite=t
 
+echo  "Done filtering PhiX sequences from Unmerged reads."
+echo  `date`
+
 ##################################################################################################
 ############################# Prinseq : Deduplication of reads ###################################
 ##################################################################################################
 
 ### Duplicate Removal for merged (M) reads
 
-echo "Removing duplicates from" ${OUTPUT_FOLDER}"/old_way.phiX_filtered.M.fq"
+echo  "Removing duplicates from" ${OUTPUT_FOLDER}"/old_way.phiX_filtered.M.fq"
+echo  `date`
 
 prinseq-lite.pl -fastq ${OUTPUT_FOLDER}/old_way.phiX_filtered.M.fq \
                 -out_format 1 \
@@ -143,9 +164,13 @@ prinseq-lite.pl -fastq ${OUTPUT_FOLDER}/old_way.phiX_filtered.M.fq \
                 -out_bad null -derep 1 -line_width 0 \
                 2> /dev/null
 
+echo  "Done removing duplicates from Merged reads"
+echo  `date`
+
 ### Duplicate Removal for unmerged (R1+R2) reads
 
-echo "Removing duplicates from" ${OUTPUT_FOLDER}"/old_way.phiX_filtered.R1.fq and" ${OUTPUT_FOLDER}"/old_way.phiX_filtered.R2.fq"
+echo  "Removing duplicates from" ${OUTPUT_FOLDER}"/old_way.phiX_filtered.R1.fq and" ${OUTPUT_FOLDER}"/old_way.phiX_filtered.R2.fq"
+echo  `date`
 
 prinseq-lite.pl -fastq ${OUTPUT_FOLDER}/old_way.phiX_filtered.R1.fq \
                 -fastq2 ${OUTPUT_FOLDER}/old_way.phiX_filtered.R2.fq \
@@ -153,6 +178,9 @@ prinseq-lite.pl -fastq ${OUTPUT_FOLDER}/old_way.phiX_filtered.R1.fq \
                 -out_good ${OUTPUT_FOLDER}/old_way.duplicates_removed \
                 -out_bad null -derep 1 -line_width 0 \
                 2> /dev/null
+
+echo  "Done removing duplicates from Unmerged reads"
+echo  `date`
 
 ### Renaming Prinseq outputs in order to have somewhat consistent names
 
