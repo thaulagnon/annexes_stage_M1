@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# This script is the result of the benchmarking comparing old_way.sh and new_way.sh
+# It picks the tool best suited for the job at each step
+# And adds a complementary trimming step for unmerged reads, which AdapterRemoval does not trim properly
+# It uses AdapterRemoval for trimming and merging
+#         bbduk for additional unmerged read trimming
+#         Prinseq for complexity filtering
+#         bbduk for PhiX filtering
+#         Prinseq for duplicate removal
+
 ##################################################################################################
 ########################################## Script usage ##########################################
 ##################################################################################################

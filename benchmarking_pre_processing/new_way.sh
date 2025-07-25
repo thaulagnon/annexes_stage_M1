@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# This script pre-processes data with some new tools, with the objective of modernizing the pipeline
+# These tools have been chosen because of their ease of access on Galaxy, their modernity, and their widespread use
+# It uses AdapterRemoval for trimming and merging
+#         fastp for complexity filtering
+#         bbduk for PhiX filtering
+#         fastp for duplicate removal
+
 ##################################################################################################
 ########################################## Script usage ##########################################
 ##################################################################################################

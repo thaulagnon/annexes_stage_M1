@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# This script pre-processes data in the same way the original pipeline does it
+# It uses SeqPrep2 for trimming and merging
+#         Prinseq for complexity filtering
+#         bbduk for PhiX filtering
+#         Prinseq for duplicate filtering
+
 ##################################################################################################
 ########################################## Script usage ##########################################
 ##################################################################################################
