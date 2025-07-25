@@ -18,6 +18,7 @@ Le wrapper contient :
 
 Ce dossier contient des scripts utilisés pour tester divers outils de pré-traitement des reads.
 Il contient aussi une analyse des résultats pour l'étape de merging et de trimming, réalisée avec l'outil falco.
+Il contient enfin des fichiers textes *_stdout.txt qui contiennnent les temps de calcul des différentes étapaes, pour chaque script.
 
 Scripts :
 - old_way.sh : Contient le pré-traitement tel que réalisé dans le pipeline original
@@ -27,5 +28,6 @@ Scripts :
 A noter : l'étape de dé-duplication n'apparait plus dans le workflow Galaxy car elle venait en préalable au BLASTn uniquement, qui n'a pas pu être effectué sur Galaxy
 
 Résultats : Un fichier HTML à télécharger par fichier (Merged/Unmerged R1/Unmerged R2) et par méthode (old_way; new_way; final_way)
+J'ai aussi inclus les deux FastQC initiaux (sur R1 et R2) afin d'avoir un référentiel pour les FastQC ultérieurs
 
 
