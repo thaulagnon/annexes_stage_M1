@@ -78,7 +78,8 @@ bbduk.sh in=$OUTPUT_FOLDER/final_way.trimmed.R1.fq \
          out2=$OUTPUT_FOLDER/final_way.retrimmed.R2.fq \
          ktrim=r \
          k=23 \
-         mink=11
+         mink=11 \
+         minlength=25
 
 echo  "Done re-trimming Unmerged reads"
 echo  `date`
